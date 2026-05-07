@@ -1,0 +1,24 @@
+{
+  "name": "thatopen-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@thatopen/components": "3.3.3",
+    "@thatopen/components-front": "3.3.3",
+    "@thatopen/fragments": "3.3.0",
+    "camera-controls": "^3.1.2",
+    "three": "^0.175.0",
+    "web-ifc": "0.0.74"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}

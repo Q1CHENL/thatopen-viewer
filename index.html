@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThatOpen IFC Viewer Benchmark</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <aside class="panel">
+      <h1>ThatOpen IFC Viewer</h1>
+      <div class="metric-row">
+        <span>FPS</span>
+        <strong id="fps-value">--</strong>
+      </div>
+      <label class="select-row">
+        <span>Renderer</span>
+        <select id="renderer-mode">
+          <option value="1" selected>Auto</option>
+          <option value="0">Manual moving preview</option>
+        </select>
+      </label>
+      <section class="edge-section" aria-label="Edge rendering">
+        <label class="toggle-row">
+          <span>Edges</span>
+          <input id="edges-toggle" type="checkbox" checked />
+        </label>
+        <label class="select-row">
+          <span>Mode</span>
+          <select id="edge-mode">
+            <option value="0">Default</option>
+            <option value="1">Global</option>
+          </select>
+        </label>
+        <label class="select-row">
+          <span>LOD</span>
+          <select id="lod-mode">
+            <option value="0">Default</option>
+            <option value="2">Full geometry</option>
+            <option value="1" selected>All visible</option>
+          </select>
+        </label>
+      </section>
+      <label class="file-picker">
+        <span>Load IFC(s)</span>
+        <input id="ifc-input" type="file" accept=".ifc" multiple />
+      </label>
+      <label class="file-picker secondary">
+        <span>Load FRAG(s)</span>
+        <input id="frag-input" type="file" accept=".frag" multiple />
+      </label>
+      <button id="clear-button" type="button">Clear models</button>
+      <button id="fit-button" type="button">Fit camera</button>
+      <section class="models-section" aria-label="Loaded models">
+        <div class="section-title">Loaded models</div>
+        <div id="models-list" class="models-list empty">No models loaded.</div>
+      </section>
+      <section class="selection-section" aria-label="Selected object">
+        <div class="section-title">Selected object</div>
+        <div id="selection-output" class="selection-output empty">No object selected.</div>
+      </section>
+    </aside>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
