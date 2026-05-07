@@ -156,6 +156,14 @@ button:disabled,
   opacity: 0.55;
 }
 
+.status {
+  min-height: 18px;
+  color: #41516b;
+  font-size: 12px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
 .models-section,
 .selection-section {
   display: grid;

@@ -98,13 +98,15 @@ export const createModelLoadingController = ({
   const loadFragBuffer = async (
     buffer: ArrayBuffer | Uint8Array,
     modelId: string,
-    _label: string,
+    label: string,
   ) => {
+    ui.setStatus(`Loading ${label} as Fragments...`);
     await fragments.core.load(buffer, { modelId, camera: world.camera.three });
   };
 
   const loadFragFile = async (file: File, modelId: string, index: number, total: number) => {
     const label = total > 1 ? `${file.name} (${index}/${total})` : file.name;
+    ui.setStatus(`Reading ${label}...`);
     const downloadBuffer = await file.arrayBuffer();
     const loadBuffer = cloneArrayBuffer(downloadBuffer);
     downloadableFrags.set(modelId, {
@@ -128,15 +130,21 @@ export const createModelLoadingController = ({
   ) => {
     const label = total > 1 ? `${file.name} (${index}/${total})` : file.name;
 
+    ui.setStatus(`Reading ${label}...`);
     const buffer = new Uint8Array(await file.arrayBuffer());
 
+    ui.setStatus(`Converting ${label} to Fragments...`);
     const model = await ifcLoader.load(buffer, true, modelId, {
       processData: {
-        progressCallback: () => undefined,
+        progressCallback: (progress, data) => {
+          const percent = Math.round(progress * 100);
+          ui.setStatus(`${label}: ${data.process} ${data.state} ${percent}%`);
+        },
       },
     });
 
     const fragFileName = fragFileNameFromIfc(file.name);
+    ui.setStatus(`Preparing ${fragFileName} for download...`);
     const fragBuffer = await model.getBuffer(false);
     downloadableFrags.set(modelId, {
       fileName: fragFileName,
@@ -170,6 +178,7 @@ export const createModelLoadingController = ({
       await fitAllModels(runtime);
     } catch (error) {
       console.error(error);
+      ui.setStatus(error instanceof Error ? error.message : `Failed to load ${kind} files.`);
     } finally {
       ui.setBusy(false);
       refreshModelsList();

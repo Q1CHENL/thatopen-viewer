@@ -13,6 +13,7 @@ export type ViewerUi = {
   fitButton: HTMLButtonElement;
   modelsList: HTMLElement;
   selectionOutput: HTMLElement;
+  setStatus: (message: string) => void;
   setBusy: (busy: boolean) => void;
   renderSelectionMessage: (message: string) => void;
   renderSelectedObject: (selection: SelectedObject | null) => void;
@@ -39,6 +40,11 @@ export const createUi = (): ViewerUi => {
   const fitButton = requireElement("fit-button", HTMLButtonElement);
   const modelsList = requireElement("models-list", HTMLElement);
   const selectionOutput = requireElement("selection-output", HTMLElement);
+  const statusElement = requireElement("status", HTMLElement);
+
+  const setStatus = (message: string) => {
+    statusElement.textContent = message;
+  };
 
   const setBusy = (busy: boolean) => {
     fileInput.disabled = busy;
@@ -96,6 +102,7 @@ export const createUi = (): ViewerUi => {
     fitButton,
     modelsList,
     selectionOutput,
+    setStatus,
     setBusy,
     renderSelectionMessage,
     renderSelectedObject,
